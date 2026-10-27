@@ -23,6 +23,14 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Ensure Gradle Wrapper jar is present
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "gradle-wrapper.jar missing, downloading official Gradle 8.5 wrapper jar..."
+            mkdir -p gradle/wrapper
+            curl -sLo gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.jar
+          fi
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
